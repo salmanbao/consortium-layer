@@ -1,0 +1,61 @@
+
+services:
+
+  fabric-ethermint-bridge1:
+    build:
+      context: ./ethermint-events
+      dockerfile: Dockerfile
+    image: bridge:v20.0.0
+    networks:
+      - blockchain_network
+    container_name: fabric-ethermint-bridge1
+    environment:
+      - LAYER_NUMBER=1
+      - RPC_URL=http://layer-1:8545
+      - WS_URL=ws://layer-1:8646
+      - UPPER_LAYER_INCOMING=fabric_to_ethermint_queue
+      - UPPER_LAYER_OUTGOING=ethermint_to_fabric_queue
+      - LOWER_LAYER_INCOMING=layer1_ethermint_incoming_queue
+      - LOWER_LAYER_OUTGOING=layer1_ethermint_outgoing_queue
+      - CONTRACT_ADDRESS=0xEDA1cB516e6F71FD2FeBE6584E0a5968e501cdB5
+
+  fabric-ethermint-bridge2:
+    build:
+      context: ./ethermint-events
+      dockerfile: Dockerfile
+    image: bridge:v20.0.0
+    networks:
+      - blockchain_network
+    container_name: fabric-ethermint-bridge2
+    environment:
+      - LAYER_NUMBER=2
+      - RPC_URL=http://layer-2:8545
+      - WS_URL=ws://layer-2:8647
+      - UPPER_LAYER_INCOMING=layer1_ethermint_outgoing_queue
+      - UPPER_LAYER_OUTGOING=layer1_ethermint_incoming_queue
+      - LOWER_LAYER_INCOMING=layer2_ethermint_incoming_queue
+      - LOWER_LAYER_OUTGOING=layer2_ethermint_outgoing_queue
+      - CONTRACT_ADDRESS=0xEDA1cB516e6F71FD2FeBE6584E0a5968e501cdB5
+
+  fabric-ethermint-bridge3:
+    build:
+      context: ./ethermint-events
+      dockerfile: Dockerfile
+    image: bridge:v20.0.0
+    networks:
+      - blockchain_network
+    container_name: fabric-ethermint-bridge3
+    environment:
+      - LAYER_NUMBER=3
+      - RPC_URL=http://layer-3:8545
+      - WS_URL=ws://layer-3:8648
+      - UPPER_LAYER_INCOMING=layer2_ethermint_outgoing_queue
+      - UPPER_LAYER_OUTGOING=layer2_ethermint_incoming_queue
+      - LOWER_LAYER_INCOMING=NONE
+      - LOWER_LAYER_OUTGOING=NONE
+      - CONTRACT_ADDRESS=0xEDA1cB516e6F71FD2FeBE6584E0a5968e501cdB5
+
+
+networks:
+  blockchain_network:
+    external: true

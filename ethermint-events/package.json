@@ -1,0 +1,19 @@
+{
+  "name": "veim",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run watchEvents\" \"npm run consumeEvents\"",
+    "watchEvents": "node modules/watch-events.js",
+    "consumeEvents": "node messageQueue/consumer.js"
+  },
+  "author": "salmanbao",
+  "license": "ISC",
+  "dependencies": {
+    "aes-256-gcm": "^1.0.3",
+    "amqplib": "^0.10.4",
+    "viem": "^2.11.0",
+    "concurrently": "^7.0.0"
+  }
+}

@@ -1,0 +1,39 @@
+
+services:
+
+  layer1-contract:
+    build:
+      context: ./contract
+      dockerfile: Dockerfile
+    image: contracts_node:v20.0.0
+    networks:
+      - blockchain_network
+    container_name: layer1-contract
+    environment:
+      - RPC_URL=http://layer-1:8545
+
+  layer2-contract:
+    build:
+      context: ./contract
+      dockerfile: Dockerfile
+    image: contracts_node:v20.0.0
+    networks:
+      - blockchain_network
+    container_name: layer2-contract
+    environment:
+      - RPC_URL=http://layer-2:8545
+
+  layer3-contract:
+    build:
+      context: ./contract
+      dockerfile: Dockerfile
+    image: contracts_node:v20.0.0
+    networks:
+      - blockchain_network
+    container_name: layer3-contract
+    environment:
+      - RPC_URL=http://layer-3:8545
+
+networks:
+  blockchain_network:
+    external: true
