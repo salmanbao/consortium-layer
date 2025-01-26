@@ -6,7 +6,7 @@
   "scripts": {
     "reset": "hardhat clean",
     "compile": "hardhat compile",
-    "start": "npm run reset && npm run compile && npm run deploy",
+    "start": "node api.js && npm run reset && npm run compile && npm run deploy",
     "deploy": "yes | hardhat ignition deploy ./ignition/modules/IoT.ts --deployment-id iotContract --network ethermint  --reset "
   },
   "devDependencies": {
