@@ -17,6 +17,8 @@ services:
       - UPPER_LAYER_OUTGOING=ethermint_to_fabric_queue
       - LOWER_LAYER_INCOMING=layer1_ethermint_incoming_queue
       - LOWER_LAYER_OUTGOING=layer1_ethermint_outgoing_queue
+      # - LOWER_LAYER_INCOMING=NONE
+      # - LOWER_LAYER_OUTGOING=NONE
       - CONTRACT_ADDRESS=0xEDA1cB516e6F71FD2FeBE6584E0a5968e501cdB5
 
   fabric-ethermint-bridge2:
@@ -35,6 +37,8 @@ services:
       - UPPER_LAYER_OUTGOING=layer1_ethermint_incoming_queue
       - LOWER_LAYER_INCOMING=layer2_ethermint_incoming_queue
       - LOWER_LAYER_OUTGOING=layer2_ethermint_outgoing_queue
+      # - LOWER_LAYER_INCOMING=NONE
+      # - LOWER_LAYER_OUTGOING=NONE
       - CONTRACT_ADDRESS=0xEDA1cB516e6F71FD2FeBE6584E0a5968e501cdB5
 
   fabric-ethermint-bridge3:
