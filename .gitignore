@@ -4,3 +4,4 @@ contracts/cache
 contract/typechain-types
 contract/typechain
 .DS_Store
+config.bat

@@ -4,6 +4,7 @@ const {
   createWalletClient,
   http,
   getContract,
+  nonceManager
 } = require("viem");
 const { aevmos } = require("../chain/chain.js");
 const abi = require("../abis/abi.json");
@@ -13,8 +14,9 @@ const {
   MNEMONIC,
 } = require("../constants/constants");
 
+
 // Get the account from the mnemonic
-const account = mnemonicToAccount(MNEMONIC);
+const account = mnemonicToAccount(MNEMONIC,{nonceManager:nonceManager});
 
 // Create public and wallet clients
 const publicClient = createPublicClient({
@@ -33,7 +35,7 @@ function loadContract() {
   const contract = getContract({
     address: CONTRACT_ADDRESS,
     abi,
-    client: { public: publicClient, wallet: walletClient },
+    client: { wallet: walletClient },
   });
   return contract;
 }

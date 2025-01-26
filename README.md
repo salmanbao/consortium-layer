@@ -34,8 +34,8 @@ This will deploy the contracts in all 3 layers with same contract addresses ever
 
 ### Deploy bridges
 ```
- docker-com -f ./docker-compose.contract-deployment.yml build
- docker-compose -f ./docker-compose.contract-deployment.yml up -d
+ docker-com -f ./docker-compose.bridge.yml build
+ docker-compose -f ./docker-compose.bridge.yml up -d
 ```
 In the bridge container we are running one event listener for each layer.
 It will listen to events from the layer contract and send them to the other layer contract.
