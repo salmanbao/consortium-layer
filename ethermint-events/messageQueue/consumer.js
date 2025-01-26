@@ -6,8 +6,12 @@ const {
   RABBITMQ_HOST
 } = require("../constants/constants.js");
 
+
+// We'll also store references to RabbitMQ connection & channel
 let connection;
 let channel;
+
+
 async function listenFor(queueName) {
   try {
     const contract = loadContract();
@@ -32,21 +36,26 @@ async function listenFor(queueName) {
 
         if (queueName.includes("incoming")) {
           try {
-            console.log("Receiving validation from laower layer");
-            const data = await contract.write.validateData([message.dataID]);
-            console.log(`Data Validated Hash: ${data}`);
+            const txHash = await contract.write.validateData(
+              [message.dataID]
+            );
+            console.log("Receiving validation from lower layer");
+            console.log(`Data Validated Hash: ${txHash}`);
           }catch (error) { 
             console.log("Failed to validate data:", error);
           }
         } else {
           try {
-            const data = await contract.write.submitIoTData([
-              message.dataId || message.dataID,
-              message.deviceID,
-              message.dataHash,
-              unixTimestamp,
-            ]);
-            console.log(`Data Submitted Hash: ${data}`);
+            const txHash = await contract.write.submitIoTData(
+              [
+                message.dataId || message.dataID,
+                message.deviceID,
+                message.dataHash,
+                unixTimestamp,
+              ]
+            );
+
+            console.log(`Data Submitted Hash: ${txHash}`);
           } catch (error) {
             console.error("Failed to submit data:", error);
           }
@@ -65,6 +74,7 @@ async function listenFor(queueName) {
 async function main() {
   try {
     console.log("Start listening to the queue")
+
 if (UPPER_LAYER_INCOMING !== "NONE") {
   listenFor(UPPER_LAYER_INCOMING).then(() => {
     console.log("Listening for messages in queue:", UPPER_LAYER_INCOMING);
